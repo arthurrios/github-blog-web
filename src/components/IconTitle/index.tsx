@@ -5,11 +5,12 @@ import { IconProp } from '@fortawesome/fontawesome-svg-core'
 interface IconTitleProps {
   icon: IconProp
   title: string
+  variant?: 'home' | 'post'
 }
 
-export function IconTitle({ title, icon }: IconTitleProps) {
+export function IconTitle({ title, icon, variant = 'home' }: IconTitleProps) {
   return (
-    <IconTitleContainer>
+    <IconTitleContainer variant={variant}>
       <FontAwesomeIcon icon={icon} />
       <span>{title}</span>
     </IconTitleContainer>

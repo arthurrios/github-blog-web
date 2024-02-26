@@ -1,6 +1,10 @@
 import styled from 'styled-components'
 
-export const IconTitleContainer = styled.div`
+interface TextStyleProps {
+  variant: 'home' | 'post'
+}
+
+export const IconTitleContainer = styled.div<TextStyleProps>`
   display: flex;
   align-items: center;
   gap: 8px;
@@ -12,6 +16,9 @@ export const IconTitleContainer = styled.div`
   }
 
   span {
-    color: ${({ theme }) => theme.COLORS.BASE_SUBTITLE};
+    color: ${(props) =>
+      props.variant === 'home'
+        ? props.theme.COLORS.BASE_SUBTITLE
+        : props.theme.COLORS.BASE_SPAN};
   }
 `
