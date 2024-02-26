@@ -20,6 +20,7 @@ export const GlobalStyle = createGlobalStyle`
 
   body, input, textarea, button {
     ${({ theme }) => theme.FONTS.TEXT_M}
+    color: ${({ theme }) => theme.COLORS.BASE_TEXT};
   }
 
   button {
