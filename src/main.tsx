@@ -5,6 +5,11 @@ import { ThemeProvider } from 'styled-components'
 import { defaultTheme } from './styles/theme/default.ts'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './Router.tsx'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { faGithub } from '@fortawesome/free-brands-svg-icons'
+
+library.add(fas, faGithub)
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
