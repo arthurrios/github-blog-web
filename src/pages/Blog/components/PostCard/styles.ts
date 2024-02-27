@@ -1,9 +1,12 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-export const PostCardContainer = styled.button`
+export const PostCardContainer = styled(Link)`
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
+  text-decoration: none;
+  color: ${({ theme }) => theme.COLORS.BASE_TEXT};
 
   width: 26rem;
   height: 16.25rem;

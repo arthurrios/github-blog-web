@@ -7,6 +7,7 @@ import { PostContentDTO } from '../../dtos/PostContentDTO'
 import { env } from '../../env'
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter'
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { useParams } from 'react-router-dom'
 
 const username = env.VITE_GITHUB_USERNAME
 const repoName = env.VITE_GITHUB_REPONAME
@@ -15,10 +16,14 @@ export function Post() {
   const [content, setContent] = useState<PostContentDTO>({} as PostContentDTO)
   const [isLoading, setIsLoading] = useState(true)
 
+  const { postNumber } = useParams()
+
   async function fetchPost() {
     try {
       setIsLoading(true)
-      const response = await api.get(`repos/${username}/${repoName}/issues/6`)
+      const response = await api.get(
+        `repos/${username}/${repoName}/issues/${postNumber}`,
+      )
 
       setContent(response.data)
     } catch (error) {

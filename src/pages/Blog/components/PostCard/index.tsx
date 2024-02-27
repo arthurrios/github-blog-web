@@ -11,7 +11,7 @@ interface PostCardProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export function PostCard({ postData, isLoading }: PostCardProps) {
   if (!isLoading) {
     return (
-      <PostCardContainer>
+      <PostCardContainer to={`post/${postData.number}`}>
         <div>
           <h2>{postData.title}</h2>
           <span>{formatDate(postData.created_at)}</span>
