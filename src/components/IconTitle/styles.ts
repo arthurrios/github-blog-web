@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 interface TextStyleProps {
-  variant: 'home' | 'post'
+  $variant: 'home' | 'post'
 }
 
 export const IconTitleContainer = styled.div<TextStyleProps>`
@@ -17,7 +17,7 @@ export const IconTitleContainer = styled.div<TextStyleProps>`
 
   span {
     color: ${(props) =>
-      props.variant === 'home'
+      props.$variant === 'home'
         ? props.theme.COLORS.BASE_SUBTITLE
         : props.theme.COLORS.BASE_SPAN};
   }

@@ -18,7 +18,7 @@ export function Profile() {
           <Info>
             <IconTitle icon={['fab', 'github']} title="arthurrios" />
             <IconTitle icon={['fas', 'building']} title="RIOS" />
-            <IconTitle icon={['fas', 'user-group']} title="32 seguidores" />
+            <IconTitle icon={['fas', 'user-group']} title="32 followers" />
           </Info>
 
           <RouterLink
