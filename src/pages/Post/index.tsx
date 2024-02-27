@@ -1,5 +1,5 @@
 import ReactMarkdown from 'react-markdown'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { PostInfo } from '../../components/PostInfo'
 import { api } from '../../libs/axios'
 import { PostContainer, PostContent } from './styles'
@@ -18,7 +18,7 @@ export function Post() {
 
   const { postNumber } = useParams()
 
-  async function fetchPost() {
+  const fetchPost = useCallback(async () => {
     try {
       setIsLoading(true)
       const response = await api.get(
@@ -31,11 +31,11 @@ export function Post() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [postNumber])
 
   useEffect(() => {
     fetchPost()
-  }, [])
+  }, [fetchPost])
 
   return (
     <PostContainer>

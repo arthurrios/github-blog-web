@@ -10,6 +10,7 @@ export const PostContainer = styled.div`
 `
 export const PostContent = styled.div`
   padding: 2.5rem 2rem;
+  width: 100%;
 
   a {
     color: ${({ theme }) => theme.COLORS.BLUE};
