@@ -1,12 +1,38 @@
+import { useEffect, useState } from 'react'
 import { Input } from '../../components/Input'
 import { Profile } from '../../components/Profile'
 import { PostCard } from './components/PostCard'
 import { BlogContainer, Posts, SearchForm } from './styles'
+import { api } from '../../libs/axios'
+import { env } from '../../env'
+import { UserDTO } from '../../dtos/UserDTO'
+
+const username = env.VITE_GITHUB_USERNAME
 
 export function Blog() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [userData, setUserData] = useState<UserDTO>({} as UserDTO)
+
+  async function getUserData() {
+    try {
+      setIsLoading(true)
+      const response = await api.get(`users/${username}`)
+
+      setUserData(response.data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
   return (
     <BlogContainer>
-      <Profile />
+      <Profile isLoading={isLoading} userData={userData} />
       <SearchForm>
         <div>
           <h3>Posts</h3>

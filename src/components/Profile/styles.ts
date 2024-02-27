@@ -12,17 +12,17 @@ export const ProfileContainer = styled.div`
   box-shadow: 0 2px 28px rgba(0, 0, 0, 0.2);
 
   background: ${({ theme }) => theme.COLORS.BASE_PROFILE};
-
-  > div {
-    position: absolute;
-    left: 2.5rem;
-    top: 2rem;
-
-    display: flex;
-    gap: 32px;
-    align-items: center;
-  }
 `
+export const ProfileContent = styled.div`
+  padding: 2rem 2.5rem;
+  width: 100%;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  align-items: center;
+`
+
 export const ProfileImg = styled.img`
   height: 9.25rem;
   width: 9.25rem;

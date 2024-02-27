@@ -1,35 +1,48 @@
+import { UserDTO } from '../../dtos/UserDTO'
 import { IconTitle } from '../IconTitle'
 import { RouterLink } from '../RouterLink'
-import { Bio, Info, ProfileContainer, ProfileImg } from './styles'
+import {
+  Bio,
+  Info,
+  ProfileContainer,
+  ProfileContent,
+  ProfileImg,
+} from './styles'
 
-export function Profile() {
+interface ProfileProps {
+  userData: UserDTO
+  isLoading: boolean
+}
+
+export function Profile({ isLoading, userData }: ProfileProps) {
   return (
     <ProfileContainer>
-      <div>
-        <ProfileImg src="https://github.com/arthurrios.png" />
-        <Bio>
-          <h1>Arthur Rios</h1>
-          <span>
-            Tristique volutpat pulvinar vel massa, pellentesque egestas. Eu
-            viverra massa quam dignissim aenean malesuada suscipit. Nunc,
-            volutpat pulvinar vel mass.
-          </span>
+      {!isLoading && (
+        <ProfileContent>
+          <ProfileImg src={userData.avatar_url} />
+          <Bio>
+            <h1>Arthur Rios</h1>
+            <span>{userData.bio}</span>
 
-          <Info>
-            <IconTitle icon={['fab', 'github']} title="arthurrios" />
-            <IconTitle icon={['fas', 'building']} title="RIOS" />
-            <IconTitle icon={['fas', 'user-group']} title="32 followers" />
-          </Info>
+            <Info>
+              <IconTitle icon={['fab', 'github']} title={userData.login} />
+              <IconTitle icon={['fas', 'building']} title={userData.company} />
+              <IconTitle
+                icon={['fas', 'user-group']}
+                title={`${userData.followers} followers`}
+              />
+            </Info>
 
-          <RouterLink
-            title="github"
-            link="https://github.com/arthurrios"
-            icon={['fas', 'arrow-up-right-from-square']}
-            iconRight
-            style={{ position: 'absolute', top: 0, right: '32px' }}
-          />
-        </Bio>
-      </div>
+            <RouterLink
+              title="github"
+              link={userData.html_url}
+              icon={['fas', 'arrow-up-right-from-square']}
+              iconRight
+              style={{ position: 'absolute', top: '40px', right: '32px' }}
+            />
+          </Bio>
+        </ProfileContent>
+      )}
     </ProfileContainer>
   )
 }
