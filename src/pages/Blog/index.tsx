@@ -6,12 +6,15 @@ import { BlogContainer, Posts, SearchForm } from './styles'
 import { api } from '../../libs/axios'
 import { env } from '../../env'
 import { UserDTO } from '../../dtos/UserDTO'
+import { PostDTO } from '../../dtos/PostDTO'
 
 const username = env.VITE_GITHUB_USERNAME
+const repoName = env.VITE_GITHUB_REPONAME
 
 export function Blog() {
   const [isLoading, setIsLoading] = useState(true)
   const [userData, setUserData] = useState<UserDTO>({} as UserDTO)
+  const [posts, setPosts] = useState<PostDTO[]>([] as PostDTO[])
 
   async function getUserData() {
     try {
@@ -26,8 +29,22 @@ export function Blog() {
     }
   }
 
+  async function getPosts() {
+    try {
+      setIsLoading(true)
+      const response = await api.get(`repos/${username}/${repoName}/issues`)
+
+      setPosts(response.data)
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   useEffect(() => {
     getUserData()
+    getPosts()
   }, [])
 
   return (
@@ -41,21 +58,11 @@ export function Blog() {
         <Input placeholder="Search content" />
       </SearchForm>
       <Posts>
-        {Array.from({ length: 6 }, (_, index) => (
-          <PostCard
-            key={index}
-            title="JavaScript data types and data structures"
-            createdAt="1 day ago"
-            description="Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn.
-
-            Dynamic typing
-            JavaScript is a loosely typed and dynamic language. Variables in JavaScript are not directly associated with any particular value type, and any variable can be assigned (and re-assigned) values of all types:
-            
-            let foo = 42; // foo is now a number
-            foo = 'bar'; // foo is now a string
-            foo = true; // foo is now a boolean"
-          />
-        ))}
+        {posts.map((post) => {
+          return (
+            <PostCard isLoading={isLoading} key={post.number} postData={post} />
+          )
+        })}
       </Posts>
     </BlogContainer>
   )

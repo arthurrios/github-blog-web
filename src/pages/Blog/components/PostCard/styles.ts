@@ -1,32 +1,42 @@
 import styled from 'styled-components'
 
 export const PostCardContainer = styled.button`
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
   width: 26rem;
   height: 16.25rem;
-  position: relative;
-  overflow: hidden;
   padding: 2rem;
 
   border-radius: 10px;
   background: ${({ theme }) => theme.COLORS.BASE_POST};
   border: 2px solid transparent;
 
-  h2 {
-    position: absolute;
-    left: 32px;
-    top: 32px;
-    width: 17.68rem;
-    text-align: left;
-    ${({ theme }) => theme.FONTS.TITLE_M}
-    color: ${({ theme }) => theme.COLORS.BASE_TITLE};
-  }
+  > div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
 
-  span {
-    position: absolute;
-    right: 32px;
-    top: 37px;
-    ${({ theme }) => theme.FONTS.TEXT_S}
-    color: ${({ theme }) => theme.COLORS.BASE_SPAN};
+    h2 {
+      max-width: 14.5rem;
+      text-align: left;
+      ${({ theme }) => theme.FONTS.TITLE_M}
+      color: ${({ theme }) => theme.COLORS.BASE_TITLE};
+
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    span {
+      text-align: right;
+      ${({ theme }) => theme.FONTS.TEXT_S}
+      color: ${({ theme }) => theme.COLORS.BASE_SPAN};
+    }
   }
 
   &:hover {
@@ -36,10 +46,9 @@ export const PostCardContainer = styled.button`
 `
 export const Description = styled.p`
   text-align: left;
-  margin-top: 5.25rem;
 
-  max-height: 7rem;
   overflow: hidden;
+  text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
