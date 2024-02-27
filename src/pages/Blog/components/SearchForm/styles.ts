@@ -1,14 +1,6 @@
 import styled from 'styled-components'
 
-export const BlogContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  max-width: 54rem;
-  margin: 0 auto;
-`
-export const SearchForm = styled.form`
+export const SearchFormContainer = styled.form`
   width: 100%;
   margin-top: 4.5rem;
 
@@ -28,10 +20,17 @@ export const SearchForm = styled.form`
       color: ${({ theme }) => theme.COLORS.BASE_SPAN};
     }
   }
-`
-export const Posts = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-  padding: 3rem 0 14.625rem;
+
+  input {
+    padding: 0.75rem 1rem;
+    border: 0;
+    border-radius: 6px;
+    width: 100%;
+
+    background: ${({ theme }) => theme.COLORS.BASE_INPUT};
+
+    &::placeholder {
+      color: ${({ theme }) => theme.COLORS.BASE_LABEL};
+    }
+  }
 `

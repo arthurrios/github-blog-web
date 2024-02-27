@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
-import { Input } from '../../components/Input'
+import { useCallback, useEffect, useState } from 'react'
 import { Profile } from '../../components/Profile'
 import { PostCard } from './components/PostCard'
-import { BlogContainer, Posts, SearchForm } from './styles'
+import { BlogContainer, Posts } from './styles'
 import { api } from '../../libs/axios'
 import { env } from '../../env'
 import { UserDTO } from '../../dtos/UserDTO'
 import { PostDTO } from '../../dtos/PostDTO'
+import { SearchForm } from './components/SearchForm'
 
 const username = env.VITE_GITHUB_USERNAME
 const repoName = env.VITE_GITHUB_REPONAME
@@ -29,34 +29,30 @@ export function Blog() {
     }
   }
 
-  async function getPosts() {
+  const getPosts = useCallback(async (query: string = '') => {
     try {
       setIsLoading(true)
-      const response = await api.get(`repos/${username}/${repoName}/issues`)
+      const response = await api.get(
+        `/search/issues?q=${query}%20repo:${username}/${repoName}`,
+      )
 
-      setPosts(response.data)
+      setPosts(response.data.items)
     } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
 
   useEffect(() => {
     getUserData()
     getPosts()
-  }, [])
+  }, [getPosts])
 
   return (
     <BlogContainer>
       <Profile isLoading={isLoading} userData={userData} />
-      <SearchForm>
-        <div>
-          <h3>Posts</h3>
-          <span>6 posts</span>
-        </div>
-        <Input placeholder="Search content" />
-      </SearchForm>
+      <SearchForm postsLength={posts.length} getPosts={getPosts} />
       <Posts>
         {posts.map((post) => {
           return (
